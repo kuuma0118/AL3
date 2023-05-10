@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
-	win->CreateGameWindow(L"LE2B_30_ワタナベ_クウマ_AL3");
+	win->CreateGameWindow();
 
 	// DirectX初期化処理
 	dxCommon = DirectXCommon::GetInstance();
@@ -81,9 +81,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 描画開始
 		dxCommon->PreDraw();
-
-		
-
 		// ゲームシーンの描画
 		gameScene->Draw();
 		// 軸表示の描画
