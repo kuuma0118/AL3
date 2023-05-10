@@ -16,6 +16,10 @@ class GameScene {
 
 	// 3Dモデル
 	Model* model_ = nullptr;
+	// ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	// ビュープロジェクション
+	ViewProjection viewProjection_;
 
 public: // メンバ関数
 	/// <summary>
