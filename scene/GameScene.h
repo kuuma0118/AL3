@@ -44,6 +44,9 @@ public: // メンバ関数
 	void Draw();
 
 private: // メンバ変数
+
+	// 　テクスチャハンドル
+	uint32_t textureHandle_ = 0;
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
