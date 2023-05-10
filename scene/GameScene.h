@@ -14,6 +14,9 @@
 /// </summary>
 class GameScene {
 
+	// 3Dモデル
+	Model* model_ = nullptr;
+
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
