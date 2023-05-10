@@ -8,12 +8,14 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "player.h"
 
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
 
+	Player* player_ = nullptr;
 	// 3Dモデル
 	Model* model_ = nullptr;
 	// ワールドトランスフォーム

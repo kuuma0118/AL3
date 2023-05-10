@@ -2,9 +2,13 @@
 #include "TextureManager.h"
 #include <cassert>
 
+
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	delete model_;
+	delete player_;
+}
 
 void GameScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
@@ -18,9 +22,11 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	player_ = new Player();
+	player_->Intialize(model_,textureHandle_);
 }
 
-void GameScene::Update() {}
+void GameScene::Update() { player_->Update(); }
 
 void GameScene::Draw() {
 
@@ -48,6 +54,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	player_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -60,9 +67,10 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
+	
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
+	
 #pragma endregion
 }
