@@ -9,6 +9,10 @@ GameScene::~GameScene() {}
 void GameScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("./Resources./sample.png");
+	// ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	// ビュープロジェクションの初期化
+	viewProjection_.Initialize();
 	// 3Dモデルの生成
 	model_ = Model::Create();
 	dxCommon_ = DirectXCommon::GetInstance();
