@@ -1,7 +1,6 @@
-#include "player.h"
+#include "Player.h"
 
-
-void Player::Intialize(Model* model, uint32_t texturehandle) { 
+void Player::Intialize(Model* model, uint32_t texturehandle) {
 	assert(model);
 
 	model_ = model;

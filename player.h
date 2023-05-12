@@ -1,12 +1,11 @@
 #pragma once
-#include "WorldTransform.h"
-#include "ViewProjection.h"
 #include "Model.h"
+#include "ViewProjection.h"
+#include "WorldTransform.h"
 #include <cassert>
 
 class Player {
 public:
-
 	void Intialize(Model* model, uint32_t texturehandle);
 
 	void Update();
