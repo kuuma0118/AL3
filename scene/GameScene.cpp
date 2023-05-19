@@ -8,6 +8,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete model_;
 	delete player_;
+	delete enemy_;
 	delete debugCamera_;
 }
 
@@ -18,17 +19,25 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("./Resources/sample.png");
+	textureHandle_ = TextureManager::Load("sample.png");
 	// 3Dモデルの生成
 	model_ = Model::Create();
 	// ワールドトランスフォーム
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
 	viewProjection_.Initialize();
+
 	// 自キャラの生成
 	player_ = new Player();
 	// 自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
+
+	// 敵の生成
+	enemy_ = new Enemy;
+	// 敵の初期化
+	Vector3 position = {0, 0, 20};
+	enemy_->Initialize(model_, position);
+
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 	// 軸方向表示を有効にする
@@ -39,6 +48,8 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 	player_->Update();
+
+	enemy_->Update();
 
 // デバッグカメラのifdef
 #ifdef _DEBUG
@@ -87,6 +98,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	player_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
