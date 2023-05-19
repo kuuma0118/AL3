@@ -1,7 +1,7 @@
-﻿#include "PlayerBullet.h"
+#include"PlayerBullet.h"
 #include <assert.h>
 
-void PlayerBullet::Initialize(Model* model, const Vector3& position) {
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 	// NULLポインタチェック
 	assert(model);
 	model_ = model;
@@ -11,9 +11,18 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position) {
 
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
+
+	velocity_ = velocity;
 }
+
 void PlayerBullet::Update() {
-	//// ワールドトランスフォーの初期化
+	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
+
+	// 時間経過で取り消し
+	if (--deathTimer <= 0) {
+		isDead_ = true;
+	}
+
 	worldTransform_.UpdateMatrix();
 }
 

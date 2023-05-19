@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Input.h"
 #include "Model.h"
 #include "PlayerBullet.h"
@@ -11,6 +10,8 @@
 /// </summary>
 class Player {
 public:
+	~Player();
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -39,11 +40,6 @@ public:
 	/// </summary>
 	void Attack();
 
-	/// <summary>
-	/// デスクトラクタ
-	/// </summary>
-	~Player();
-
 private:
 	// ワールド変換データ
 	WorldTransform worldTransform_;
@@ -57,6 +53,4 @@ private:
 	Input* input_ = nullptr;
 	// リスト
 	std::list<PlayerBullet*> bullets_;
-	// 弾
-	PlayerBullet* bullet_ = nullptr;
 };
