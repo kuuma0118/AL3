@@ -1,6 +1,5 @@
 #pragma once
-
-#include "MT3math.h"
+#include "MT3Math.h"
 #include "Input.h"
 #include "Model.h"
 #include "WorldTransform.h"

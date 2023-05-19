@@ -1,5 +1,6 @@
 #include "WorldTransform.h"
-#include "MT3Math.h"
+#include "MT3math.h"
+
 
 void WorldTransform::UpdateMatrix() {
 	// スケール、回転、平行移動を合成して行列計算する
