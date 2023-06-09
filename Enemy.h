@@ -1,27 +1,32 @@
 #pragma once
+#include "EnemyState.h"
 #include "Model.h"
 #include "WorldTransform.h"
 
+class EnemyState;
+
 class Enemy {
 public:
+	Enemy();
+	~Enemy();
+
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
 	void Update();
 
 	void Draw(const ViewProjection& viewProjection);
 
-private:
-	enum class Phase {
-		Approach,
-		Leave,
-	};
+	void Move(Vector3 speed);
 
+	void ChangingState(EnemyState* newState);
+
+	Vector3 GetPosition() { return worldTransform_.translation_; }
+
+private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_;
-	Phase phase_ = Phase::Approach;
 
-	void Approach();
-	void Leave();
+	EnemyState* phase_ = nullptr;
 };
