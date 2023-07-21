@@ -1,11 +1,12 @@
 #include "GameScene.h"
-#include "AxisIndicator.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {
+GameScene::~GameScene()
+{
 	delete model_;
 	delete player_;
 	delete enemy_;
@@ -35,8 +36,8 @@ void GameScene::Initialize() {
 	// 敵の生成
 	enemy_ = new Enemy;
 	// 敵の初期化
-	Vector3 position = {0, 0, 20};
-	enemy_->Initialize(model_, {0, 0, 0}, {0, 0, -0.5});
+	Vector3 position = { 0, 0, 20 };
+	enemy_->Initialize(model_, { 15, 0, 80 }, { 0, 0, -0.1f });
 
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
@@ -46,16 +47,18 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
-void GameScene::Update() {
+void GameScene::Update()
+{
 	player_->Update();
 
 	enemy_->Update();
 
-// デバッグカメラのifdef
+	// デバッグカメラのifdef
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0) && isDebugCameraActive_ == false) {
 		isDebugCameraActive_ = true;
-	} else if (input_->TriggerKey(DIK_0) && isDebugCameraActive_ == true) {
+	}
+	else if (input_->TriggerKey(DIK_0) && isDebugCameraActive_ == true) {
 		isDebugCameraActive_ = false;
 	}
 	// カメラの処理
@@ -65,7 +68,8 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		// ビュープロジェクション行列の転送
 		viewProjection_.TransferMatrix();
-	} else {
+	}
+	else {
 		// ビュープロジェクション行列の更新と転送
 		viewProjection_.UpdateMatrix();
 	}

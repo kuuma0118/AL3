@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Model.h"
 #include "WorldTransform.h"
 
-class Enemy {
+class EnemyBullet {
 public:
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
@@ -10,18 +11,17 @@ public:
 
 	void Draw(const ViewProjection& viewProjection);
 
+	bool IsDead() const { return isDead_; }
+
 private:
-	enum class Phase {
-		Approach,
-		Leave,
-	};
-
 	WorldTransform worldTransform_;
-	Model* model_ = nullptr;
-	uint32_t textureHandle_ = 0u;
-	Vector3 velocity_;
-	Phase phase_ = Phase::Approach;
+	Model* model_;
+	uint32_t textureHandle_;
 
-	void Approach();
-	void Leave();
+	Vector3 velocity_;
+
+	static const int32_t kLifeTime = 60;
+	int32_t deathTimer = kLifeTime;
+
+	bool isDead_ = false;
 };
