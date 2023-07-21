@@ -67,6 +67,12 @@
     <Filter Include="ソース ファイル\world">
       <UniqueIdentifier>{9fd6d532-0b36-45e3-901a-38498e777c42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\timer">
+      <UniqueIdentifier>{47d8670d-1252-4c23-b54e-bc1d39d46669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\timer">
+      <UniqueIdentifier>{c0ba8f9f-d5a1-4c5c-99ff-fb1893bd196b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="enemy\EnemyState.cpp">
       <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="timer\timer.cpp">
+      <Filter>ソース ファイル\timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="enemy\EnemyState.h">
       <Filter>ヘッダー ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="timer\timer.h">
+      <Filter>ヘッダー ファイル\timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
