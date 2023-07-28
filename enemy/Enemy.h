@@ -3,8 +3,10 @@
 #include "Model.h"
 #include "WorldTransform.h"
 #include "EnemyState.h"
-#include "MT3math.h"
+#include "MT3Math.h"
 #include "EnemyBullet.h"
+
+class Player;
 
 class EnemyState;
 
@@ -28,6 +30,9 @@ public:
 	static const int kFireInterval = 60;
 	int32_t fireTimer;
 
+	void SetPlayer(Player* player) { player_ = player; }
+	Vector3 GetWorldPosition();
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -37,4 +42,6 @@ private:
 	EnemyState* phase_ = nullptr;
 
 	std::list<EnemyBullet*> bullets_;
+
+	Player* player_ = nullptr;
 };

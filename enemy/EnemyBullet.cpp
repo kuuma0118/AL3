@@ -1,5 +1,5 @@
 #include "EnemyBullet.h"
-#include "MT3math.h"
+#include "MT3Math.h"
 #include <assert.h>
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {

@@ -1,7 +1,7 @@
-#include "Player.h"
+#include<player/Player.h>
+#include <cassert>
 #include "MT3Math.h"
 #include "ImGuiManager.h"
-#include <cassert>
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
@@ -29,10 +29,10 @@ void Player::Update() {
 			return true;
 		}
 		return false;
-	});
+		});
 
 	// キャラクターの移動ベクトル
-	Vector3 move = {0, 0, 0};
+	Vector3 move = { 0, 0, 0 };
 
 	// キャラクターの移動速度
 	const float kCharacterSpeed = 0.2f;
@@ -40,14 +40,16 @@ void Player::Update() {
 	// 押した方向で移動ベクトルを変更（左右）
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_RIGHT)) {
+	}
+	else if (input_->PushKey(DIK_RIGHT)) {
 		move.x += kCharacterSpeed;
 	}
 
 	// 押した方向で移動ベクトルを変更（上下）
 	if (input_->PushKey(DIK_UP)) {
 		move.y += kCharacterSpeed;
-	} else if (input_->PushKey(DIK_DOWN)) {
+	}
+	else if (input_->PushKey(DIK_DOWN)) {
 		move.y -= kCharacterSpeed;
 	}
 
@@ -55,7 +57,7 @@ void Player::Update() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	// アフィン変換行列の作成
 	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+		worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	// 行列更新
 	worldTransform_.UpdateMatrix();
 
@@ -68,8 +70,8 @@ void Player::Update() {
 	}
 
 	float imputFloat3[3] = {
-	    worldTransform_.translation_.x, worldTransform_.translation_.y,
-	    worldTransform_.translation_.z};
+		worldTransform_.translation_.x, worldTransform_.translation_.y,
+		worldTransform_.translation_.z };
 
 	// デバッグ
 	ImGui::Begin("Debug");
@@ -97,7 +99,8 @@ void Player::Rotate() {
 	// 押した方向で移動ベクトル
 	if (input_->PushKey(DIK_A)) {
 		worldTransform_.rotation_.y += kRotSpeed;
-	} else if (input_->PushKey(DIK_D)) {
+	}
+	else if (input_->PushKey(DIK_D)) {
 		worldTransform_.rotation_.y -= kRotSpeed;
 	}
 }
@@ -122,4 +125,12 @@ void Player::Draw(ViewProjection& viewProjection_) {
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection_);
 	}
+}
+
+Vector3 Player::GetWorldPosition() {
+	Vector3 worldPosition;
+	worldPosition.x = worldTransform_.matWorld_.m[3][0];
+	worldPosition.y = worldTransform_.matWorld_.m[3][1];
+	worldPosition.z = worldTransform_.matWorld_.m[3][2];
+	return worldPosition;
 }
