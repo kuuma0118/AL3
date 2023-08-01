@@ -16,6 +16,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 }
 
 void PlayerBullet::Update() {
+	worldTransform_.UpdateMatrix();
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 
 	// 時間経過で取り消し
@@ -23,7 +24,6 @@ void PlayerBullet::Update() {
 		isDead_ = true;
 	}
 
-	worldTransform_.UpdateMatrix();
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
