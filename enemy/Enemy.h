@@ -23,6 +23,8 @@ public:
 	void Fire();
 	void ChangingState(EnemyState* newState);
 
+	void OnCollision();
+
 	Vector3 GetPosition() { return worldTransform_.translation_; }
 	Vector3 GetSpeed() { return velocity_; }
 	void SetPosition(const Vector3& position) { worldTransform_.translation_ = position; }
@@ -33,13 +35,17 @@ public:
 	void SetPlayer(Player* player) { player_ = player; }
 	Vector3 GetWorldPosition();
 
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
+
+
 private:
+
+	EnemyState* phase_ = nullptr;
+
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_;
-
-	EnemyState* phase_ = nullptr;
 
 	std::list<EnemyBullet*> bullets_;
 

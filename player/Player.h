@@ -3,45 +3,28 @@
 #include "Model.h"
 #include "WorldTransform.h"
 #include "Input.h"
-#include "PlayerBullet.h"
+#include "player/PlayerBullet.h"
 #include <list>
 
-/// <summary>
-/// 自キャラ
-/// </summary>
 class Player {
 public:
 	~Player();
-
-	/// <summary>
-	/// 初期化
-	/// </summary>
-	/// <param name= "model">モデル</param>
-	/// <param name= "textureHandle">テクスチャハンドル</param>
+	
 	void Initialize(Model* model, uint32_t& textureHandle);
-
-	/// <summary>
-	/// 更新
-	/// </summary>
+	
 	void Update();
-
-	/// <summary>
-	/// 描画
-	/// </summary>
-	/// <param name= "viewProjection">ビュープロジェクション（参照渡し）</param>
+	
 	void Draw(ViewProjection& viewProjection);
-
-	/// <summary>
-	/// 回転
-	/// </summary>
+	
 	void Rotate();
 
-	/// <summary>
-	/// 攻撃
-	/// </summary>
 	void Attack();
 
+	void OnCollision();
+
 	Vector3 GetWorldPosition();
+
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
 private:
 	// ワールド変換データ

@@ -83,6 +83,8 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 		bullet->Draw(viewProjection);
 	}
 }
+void Enemy::OnCollision() {
+}
 
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPosition;
