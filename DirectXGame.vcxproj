@@ -109,6 +109,8 @@
     <ClCompile Include="2d\ImGuiManager.cpp" />
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
+    <ClCompile Include="Celestialsphere\Celestialsphere.cpp" />
+    <ClCompile Include="collider\CollisionManager.cpp" />
     <ClCompile Include="enemy\Enemy.cpp" />
     <ClCompile Include="enemy\EnemyBullet.cpp" />
     <ClCompile Include="enemy\EnemyState.cpp" />
@@ -142,6 +144,10 @@
     <ClInclude Include="base\SafeDelete.h" />
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\WinApp.h" />
+    <ClInclude Include="Celestialsphere\Celestialsphere.h" />
+    <ClInclude Include="collider\Collider.h" />
+    <ClInclude Include="collider\CollisionConfig.h" />
+    <ClInclude Include="collider\CollisionManager.h" />
     <ClInclude Include="enemy\Enemy.h" />
     <ClInclude Include="enemy\EnemyBullet.h" />
     <ClInclude Include="enemy\EnemyState.h" />

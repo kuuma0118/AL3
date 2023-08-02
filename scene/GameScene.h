@@ -12,6 +12,10 @@
 #include "ImGuiManager.h"
 #include "DebugCamera.h"
 #include "enemy/Enemy.h"
+#include "collider/CollisionConfig.h"	
+#include "collider/CollisionManager.h"
+#include "Celestialsphere/Celestialsphere.h"
+
 
 /// <summary>
 /// ゲームシーン
@@ -53,6 +57,7 @@ private: // メンバ変数
 	uint32_t textureHandle_ = 0;
 	// 3Dモデルデータ
 	Model* model_ = nullptr;
+	Model* CelestialModel_ = nullptr;
 	// ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	// ビュープロジェクション
@@ -66,6 +71,10 @@ private: // メンバ変数
 	// 敵
 	Enemy* enemy_ = nullptr;
 
+	CollisionManager* collisionManager_;
+
+	Celestialsphere * Celestialsphere_;
+
+
 private:
-	void CheckAllCollision();
 };

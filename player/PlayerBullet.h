@@ -4,8 +4,10 @@
 #include "Input.h"
 #include "Model.h"
 #include "WorldTransform.h"
+#include "collider/CollisionConfig.h"	
+#include "collider/CollisionManager.h"
 
-class PlayerBullet {
+class PlayerBullet : public Collider {
 public:
 	/// 初期化
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
@@ -16,9 +18,9 @@ public:
 
 	bool IsDead() const { return isDead_; }
 
-	void OnCollision();
+	void OnCollision() override;
 
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition() override;
 
 private:
 	// ワールド変換データ

@@ -5,12 +5,14 @@
 #include "EnemyState.h"
 #include "MT3Math.h"
 #include "EnemyBullet.h"
+#include "collider/Collider.h"
+
 
 class Player;
 
 class EnemyState;
 
-class Enemy {
+class Enemy : public Collider {
 public:
 	Enemy();
 	~Enemy();
@@ -23,7 +25,7 @@ public:
 	void Fire();
 	void ChangingState(EnemyState* newState);
 
-	void OnCollision();
+	void OnCollision() override;
 
 	Vector3 GetPosition() { return worldTransform_.translation_; }
 	Vector3 GetSpeed() { return velocity_; }
@@ -33,13 +35,11 @@ public:
 	int32_t fireTimer;
 
 	void SetPlayer(Player* player) { player_ = player; }
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition() override;
 
 	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 
-
 private:
-
 	EnemyState* phase_ = nullptr;
 
 	WorldTransform worldTransform_;

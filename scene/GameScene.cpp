@@ -11,6 +11,10 @@ GameScene::~GameScene()
 	delete player_;
 	delete enemy_;
 	delete debugCamera_;
+
+	delete collisionManager_;
+	delete Celestialsphere_;
+	delete CelestialModel_;
 }
 
 void GameScene::Initialize() {
@@ -23,6 +27,7 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("sample.png");
 	// 3Dモデルの生成
 	model_ = Model::Create();
+	CelestialModel_ = Model::CreateFromOBJ("skydome", true);
 	// ワールドトランスフォーム
 	worldTransform_.Initialize();
 	// ビュープロジェクションの初期化
@@ -40,6 +45,11 @@ void GameScene::Initialize() {
 	enemy_->SetPlayer(player_);
 	enemy_->Initialize(model_, { 15, 0, 80 }, { 0, 0, -0.1f });
 
+	collisionManager_ = new CollisionManager();
+	Celestialsphere_ = new Celestialsphere;
+	Celestialsphere_->Initialize(CelestialModel_);
+
+
 	// デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 	// 軸方向表示を有効にする
@@ -54,8 +64,21 @@ void GameScene::Update()
 
 	enemy_->Update();
 
-	CheckAllCollision();
+	collisionManager_->ClearColliders();
+	collisionManager_->AddCollider(player_);
+	collisionManager_->AddCollider(enemy_);
 
+	for (PlayerBullet* playerBullet : player_->GetBullets()) {
+		collisionManager_->AddCollider(playerBullet);
+	}
+
+	for (EnemyBullet* enemyBullet : enemy_->GetBullets()) {
+		collisionManager_->AddCollider(enemyBullet);
+	}
+
+	collisionManager_->CheckAllCollision();
+
+	Celestialsphere_->Update();
 	// デバッグカメラのifdef
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_0) && isDebugCameraActive_ == false) {
@@ -106,7 +129,7 @@ void GameScene::Draw() {
 	/// </summary>
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
-
+	Celestialsphere_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -122,70 +145,5 @@ void GameScene::Draw() {
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
-#pragma endregion
-}
-
-void GameScene::CheckAllCollision() {
-	Vector3 posA, posB;
-
-	float enemyBulletRadius = 0.5f;
-	float playerBulletRadius = 0.5f;
-	float playerRadius = 1.0f;
-	float enemyRadius = 1.0f;
-
-	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-
-#pragma region
-	posA = player_->GetWorldPosition();
-
-	for (EnemyBullet* bullet : enemyBullets) {
-		posB = bullet->GetWorldPosition();
-
-		Vector3 Distance = {
-			(posB.x - posA.x) * (posB.x - posA.x), (posB.y - posA.y) * (posB.y - posA.y),
-			(posB.z - posA.z) * (posB.z - posA.z) };
-		if (Distance.x + Distance.y + Distance.z <=
-			(playerRadius + enemyBulletRadius) * (playerRadius + enemyBulletRadius)) {
-			player_->OnCollision();
-			bullet->OnCollision();
-		}
-	}
-#pragma endregion
-
-#pragma region
-	posA = enemy_->GetWorldPosition();
-	for (PlayerBullet* bullet : playerBullets) {
-		posB = bullet->GetWorldPosition();
-
-		Vector3 Distance = {
-			(posB.x - posA.x) * (posB.x - posA.x), (posB.y - posA.y) * (posB.y - posA.y),
-			(posB.z - posA.z) * (posB.z - posA.z) };
-		if (Distance.x + Distance.y + Distance.z <=
-			(enemyRadius + playerBulletRadius) * (enemyRadius + playerBulletRadius)) {
-			enemy_->OnCollision();
-			bullet->OnCollision();
-		}
-	}
-#pragma endregion
-
-#pragma region 
-	for (EnemyBullet* eBullet : enemyBullets) {
-
-		posA = eBullet->GetWorldPosition();
-		for (PlayerBullet* pbullet : playerBullets) {
-			posB = pbullet->GetWorldPosition();
-
-			Vector3 Distance = {
-				(posB.x - posA.x) * (posB.x - posA.x), (posB.y - posA.y) * (posB.y - posA.y),
-				(posB.z - posA.z) * (posB.z - posA.z) };
-			if (Distance.x + Distance.y + Distance.z <=
-				(enemyBulletRadius + playerBulletRadius) *
-				(enemyBulletRadius + playerBulletRadius)) {
-				eBullet->OnCollision();
-				pbullet->OnCollision();
-			}
-		}
-	}
 #pragma endregion
 }

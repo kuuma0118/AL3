@@ -73,6 +73,18 @@
     <Filter Include="ヘッダー ファイル\timer">
       <UniqueIdentifier>{c0ba8f9f-d5a1-4c5c-99ff-fb1893bd196b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Celestialsphere">
+      <UniqueIdentifier>{d343e726-6a81-4d84-b0f0-6f59b8fb8c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Celestialsphere">
+      <UniqueIdentifier>{7813b6b9-b046-4743-9b83-02b06233a163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\colider">
+      <UniqueIdentifier>{bcaf533a-5e3f-48d1-92e9-756a9c48a591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\colider">
+      <UniqueIdentifier>{a0a2069f-4bdb-423a-aa18-e1bd89ab70c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="timer\timer.cpp">
       <Filter>ソース ファイル\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Celestialsphere\Celestialsphere.cpp">
+      <Filter>ソース ファイル\Celestialsphere</Filter>
+    </ClCompile>
+    <ClCompile Include="collider\CollisionManager.cpp">
+      <Filter>ソース ファイル\colider</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +235,18 @@
     </ClInclude>
     <ClInclude Include="timer\timer.h">
       <Filter>ヘッダー ファイル\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Celestialsphere\Celestialsphere.h">
+      <Filter>ヘッダー ファイル\Celestialsphere</Filter>
+    </ClInclude>
+    <ClInclude Include="collider\CollisionConfig.h">
+      <Filter>ヘッダー ファイル\colider</Filter>
+    </ClInclude>
+    <ClInclude Include="collider\Collider.h">
+      <Filter>ヘッダー ファイル\colider</Filter>
+    </ClInclude>
+    <ClInclude Include="collider\CollisionManager.h">
+      <Filter>ヘッダー ファイル\colider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

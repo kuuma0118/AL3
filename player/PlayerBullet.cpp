@@ -13,6 +13,9 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	worldTransform_.translation_ = position;
 
 	velocity_ = velocity;
+
+	SetCollisionAttribute(CollisionConfig::kCollisionAttributePlayer);
+	SetCollisionMask(~CollisionConfig::kCollisionAttributePlayer);
 }
 
 void PlayerBullet::Update() {
@@ -23,8 +26,6 @@ void PlayerBullet::Update() {
 	if (--deathTimer <= 0) {
 		isDead_ = true;
 	}
-
-	worldTransform_.UpdateMatrix();
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {

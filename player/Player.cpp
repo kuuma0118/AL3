@@ -2,6 +2,8 @@
 #include <cassert>
 #include "MT3Math.h"
 #include "ImGuiManager.h"
+#include "collider/Collider.h"	
+#include "GameScene.h"
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
@@ -19,6 +21,9 @@ void Player::Initialize(Model* model, uint32_t& textureHandle) {
 
 	// シングルトンインスタンスを取得する
 	input_ = Input::GetInstance();
+
+	SetCollisionAttribute(CollisionConfig::kCollisionAttributePlayer);
+	SetCollisionMask(~CollisionConfig::kCollisionAttributePlayer);
 }
 
 void Player::Update() {
@@ -75,6 +80,7 @@ void Player::Update() {
 
 	// デバッグ
 	ImGui::Begin("Debug");
+	ImGui::Text("Toggle Camera Flag : 0 key");
 	ImGui::SliderFloat3("player", imputFloat3, -30.0f, 30.0f);
 	ImGui::End();
 	worldTransform_.translation_.x = imputFloat3[0];
