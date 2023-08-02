@@ -117,6 +117,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player\Player.cpp" />
     <ClCompile Include="player\PlayerBullet.cpp" />
+    <ClCompile Include="railcamera\RailCamera.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="timer\timer.cpp" />
     <ClCompile Include="world\WorldTransform.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="player\Player.h" />
     <ClInclude Include="player\PlayerBullet.h" />
+    <ClInclude Include="railcamera\RailCamera.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="timer\timer.h" />
   </ItemGroup>

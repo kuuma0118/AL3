@@ -15,6 +15,7 @@ GameScene::~GameScene()
 	delete collisionManager_;
 	delete Celestialsphere_;
 	delete CelestialModel_;
+	delete railCamera_;
 }
 
 void GameScene::Initialize() {
@@ -35,8 +36,9 @@ void GameScene::Initialize() {
 
 	// 自キャラの生成
 	player_ = new Player();
+	Vector3 playerPosition(0, 0, 60);
 	// 自キャラの初期化
-	player_->Initialize(model_, textureHandle_);
+	player_->Initialize(model_, textureHandle_, playerPosition);
 
 	// 敵の生成
 	enemy_ = new Enemy;
@@ -48,6 +50,10 @@ void GameScene::Initialize() {
 	collisionManager_ = new CollisionManager();
 	Celestialsphere_ = new Celestialsphere;
 	Celestialsphere_->Initialize(CelestialModel_);
+	railCamera_ = new RailCamera;
+	railCamera_->Initialize({ 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f });
+
+	player_->SetParent(&railCamera_->GetWorldTransform());
 
 
 	// デバッグカメラの生成
@@ -96,8 +102,10 @@ void GameScene::Update()
 		viewProjection_.TransferMatrix();
 	}
 	else {
-		// ビュープロジェクション行列の更新と転送
-		viewProjection_.UpdateMatrix();
+		railCamera_->Update();
+		viewProjection_.matView = railCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
 	}
 #endif
 }

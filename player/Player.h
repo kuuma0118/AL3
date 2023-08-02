@@ -13,7 +13,7 @@ public:
 	~Player();
 
 	
-	void Initialize(Model* model, uint32_t& textureHandle);
+	void Initialize(Model* model, uint32_t& textureHandle, Vector3 position);
 	
 	void Update();
 
@@ -28,6 +28,8 @@ public:
 	Vector3 GetWorldPosition() override;
 
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+
+	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 private:
 	// ワールド変換データ

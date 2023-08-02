@@ -15,7 +15,7 @@
 #include "collider/CollisionConfig.h"	
 #include "collider/CollisionManager.h"
 #include "Celestialsphere/Celestialsphere.h"
-
+#include "railcamera/RailCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -75,6 +75,7 @@ private: // メンバ変数
 
 	Celestialsphere * Celestialsphere_;
 
+	RailCamera* railCamera_;
 
 private:
 };

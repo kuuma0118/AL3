@@ -85,6 +85,12 @@
     <Filter Include="ソース ファイル\colider">
       <UniqueIdentifier>{a0a2069f-4bdb-423a-aa18-e1bd89ab70c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\railcamera">
+      <UniqueIdentifier>{80afe7fd-ff54-4bb0-bef7-7dbd6935b5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\railcamera">
+      <UniqueIdentifier>{d1c1c79a-4e47-421b-93b9-002502f116fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -128,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="collider\CollisionManager.cpp">
       <Filter>ソース ファイル\colider</Filter>
+    </ClCompile>
+    <ClCompile Include="railcamera\RailCamera.cpp">
+      <Filter>ソース ファイル\railcamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="collider\CollisionManager.h">
       <Filter>ヘッダー ファイル\colider</Filter>
+    </ClInclude>
+    <ClInclude Include="railcamera\RailCamera.h">
+      <Filter>ヘッダー ファイル\railcamera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

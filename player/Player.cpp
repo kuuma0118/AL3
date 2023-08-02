@@ -1,8 +1,8 @@
-#include<player/Player.h>
+#include <player/Player.h>
 #include <cassert>
 #include "MT3Math.h"
 #include "ImGuiManager.h"
-#include "collider/Collider.h"	
+#include "collider/Collider.h"
 #include "GameScene.h"
 
 Player::~Player() {
@@ -11,7 +11,7 @@ Player::~Player() {
 	}
 }
 
-void Player::Initialize(Model* model, uint32_t& textureHandle) {
+void Player::Initialize(Model* model, uint32_t& textureHandle, Vector3 position) {
 	assert(model);
 
 	model_ = model;
@@ -24,6 +24,8 @@ void Player::Initialize(Model* model, uint32_t& textureHandle) {
 
 	SetCollisionAttribute(CollisionConfig::kCollisionAttributePlayer);
 	SetCollisionMask(~CollisionConfig::kCollisionAttributePlayer);
+
+	worldTransform_.translation_ = Add(worldTransform_.translation_, position);
 }
 
 void Player::Update() {
@@ -36,6 +38,7 @@ void Player::Update() {
 		return false;
 		});
 
+	worldTransform_.TransferMatrix();
 	// キャラクターの移動ベクトル
 	Vector3 move = { 0, 0, 0 };
 
@@ -120,7 +123,7 @@ void Player::Attack() {
 		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
 
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
 	}
 }
@@ -134,12 +137,15 @@ void Player::Draw(ViewProjection& viewProjection_) {
 }
 
 void Player::OnCollision() {
+
 }
 
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPosition;
+
 	worldPosition.x = worldTransform_.matWorld_.m[3][0];
 	worldPosition.y = worldTransform_.matWorld_.m[3][1];
 	worldPosition.z = worldTransform_.matWorld_.m[3][2];
+
 	return worldPosition;
 }
