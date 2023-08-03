@@ -47,6 +47,10 @@ void EnemyLeave::Update() {
 	const Vector3 kCharacterLeaveSpeed = { -0.2f, 0.2f, 0.0f };
 
 	enemy->Move(kCharacterLeaveSpeed);
+
+	if (enemy->GetPosition().z >= 40.0f) {
+		enemy->ChangingState(new EnemyApproach());
+	}
 }
 
 void EnemyLeave::Initialize(Enemy* enemy_) { enemy = enemy_; }

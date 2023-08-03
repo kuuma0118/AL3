@@ -91,6 +91,9 @@
     <Filter Include="ソース ファイル\railcamera">
       <UniqueIdentifier>{d1c1c79a-4e47-421b-93b9-002502f116fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="csv">
+      <UniqueIdentifier>{5f1c4693-7557-4c26-9cca-6ec95f49ed5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -308,6 +311,9 @@
     </None>
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
+    </None>
+    <None Include="csv\enemyPop.csv">
+      <Filter>csv</Filter>
     </None>
   </ItemGroup>
 </Project>
