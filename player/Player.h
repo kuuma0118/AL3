@@ -7,6 +7,7 @@
 #include <list>
 #include "collider/Collider.h"	
 #include "collider/CollisionConfig.h"
+#include "Sprite.h"
 
 class Player : public Collider {
 public:
@@ -15,9 +16,11 @@ public:
 	
 	void Initialize(Model* model, uint32_t& textureHandle, Vector3 position);
 	
-	void Update();
+	void Update(const ViewProjection viewProjection);
 
 	void Draw(ViewProjection& viewProjection);
+
+	void DrawUI();
 
 	void Rotate();
 
@@ -42,6 +45,10 @@ private:
 	Player* player_ = nullptr;
 	// キーボード入力
 	Input* input_ = nullptr;
+
+	WorldTransform worldTransform3DReticle_;
+	Sprite* sprite2DReticle_ = nullptr;
+
 	// リスト
 	std::list<PlayerBullet*> bullets_;
 };

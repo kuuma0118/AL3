@@ -37,6 +37,9 @@ void GameScene::Initialize() {
 	// ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("sample.png");
 	// 3Dモデルの生成
+
+	TextureManager::Load("Reticle.png");
+
 	model_ = Model::Create();
 	CelestialModel_ = Model::CreateFromOBJ("skydome", true);
 	// ワールドトランスフォーム
@@ -76,7 +79,7 @@ void GameScene::Update()
 {
 	UpdateEnemyPopCommands();
 
-	player_->Update();
+	player_->Update(viewProjection_);
 
 	// デバッグカメラのifdef
 #ifdef _DEBUG
@@ -151,10 +154,6 @@ void GameScene::Draw() {
 	// 背景スプライト描画前処理
 	Sprite::PreDraw(commandList);
 
-	/// <summary>
-	/// ここに背景スプライトの描画処理を追加できる
-	/// </summary>
-
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -191,6 +190,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+
+	player_->DrawUI();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
