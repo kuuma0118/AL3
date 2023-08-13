@@ -1,4 +1,4 @@
-#include"PlayerBullet.h"
+#include "player/PlayerBullet.h"
 #include <assert.h>
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
@@ -13,18 +13,19 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	worldTransform_.translation_ = position;
 
 	velocity_ = velocity;
+
+	SetCollisionAttribute(CollisionConfig::kCollisionAttributePlayer);
+	SetCollisionMask(~CollisionConfig::kCollisionAttributePlayer);
 }
 
 void PlayerBullet::Update() {
 	worldTransform_.UpdateMatrix();
 	worldTransform_.translation_ = Add(worldTransform_.translation_, velocity_);
 
-	// 時間経過で取り消し
+	//時間経過で取り消し
 	if (--deathTimer <= 0) {
 		isDead_ = true;
 	}
-
-	worldTransform_.UpdateMatrix();
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
@@ -32,10 +33,13 @@ void PlayerBullet::Draw(const ViewProjection& viewProjection) {
 }
 
 void PlayerBullet::OnCollision() { isDead_ = true; }
+
 Vector3 PlayerBullet::GetWorldPosition() {
 	Vector3 worldPosition;
+
 	worldPosition.x = worldTransform_.matWorld_.m[3][0];
 	worldPosition.y = worldTransform_.matWorld_.m[3][1];
 	worldPosition.z = worldTransform_.matWorld_.m[3][2];
+
 	return worldPosition;
 }

@@ -1,7 +1,8 @@
-#include<player/Player.h>
+#include <player/Player.h>
 #include <cassert>
 #include "MT3Math.h"
 #include "ImGuiManager.h"
+#include "Collider.h"
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
@@ -19,6 +20,9 @@ void Player::Initialize(Model* model, uint32_t& textureHandle) {
 
 	// シングルトンインスタンスを取得する
 	input_ = Input::GetInstance();
+
+	SetCollisionAttribute(CollisionConfig::kCollisionAttributePlayer);
+	SetCollisionMask(~CollisionConfig::kCollisionAttributePlayer);
 }
 
 void Player::Update() {
@@ -128,12 +132,15 @@ void Player::Draw(ViewProjection& viewProjection_) {
 }
 
 void Player::OnCollision() {
+
 }
 
 Vector3 Player::GetWorldPosition() {
 	Vector3 worldPosition;
+
 	worldPosition.x = worldTransform_.matWorld_.m[3][0];
 	worldPosition.y = worldTransform_.matWorld_.m[3][1];
 	worldPosition.z = worldTransform_.matWorld_.m[3][2];
+
 	return worldPosition;
 }

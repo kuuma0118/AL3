@@ -26,6 +26,9 @@ void Enemy::Initialize(Model* model, const Vector3& position, const Vector3& vel
 
 	phase_ = new EnemyApproach();
 	phase_->Initialize(this);
+
+	SetCollisionAttribute(CollisionConfig::kCollisionAttributeEnemy);
+	SetCollisionMask(~CollisionConfig::kCollisionAttributeEnemy);
 }
 
 void Enemy::Update() {
@@ -83,7 +86,9 @@ void Enemy::Draw(const ViewProjection& viewProjection) {
 		bullet->Draw(viewProjection);
 	}
 }
+
 void Enemy::OnCollision() {
+
 }
 
 Vector3 Enemy::GetWorldPosition() {
