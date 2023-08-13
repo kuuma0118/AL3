@@ -3,26 +3,32 @@
 #include "Model.h"
 #include "WorldTransform.h"
 #include "Input.h"
-#include "player/PlayerBullet.h"
+#include "PlayerBullet.h"
 #include <list>
+#include "Collider.h"
 
-class Player {
+/// <summary>
+/// 自キャラ
+/// </summary>
+class Player : public Collider {
 public:
 	~Player();
-	
+
 	void Initialize(Model* model, uint32_t& textureHandle);
-	
+
+
 	void Update();
+
 	
 	void Draw(ViewProjection& viewProjection);
-	
+
 	void Rotate();
 
 	void Attack();
 
-	void OnCollision();
+	void OnCollision() override;
 
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition() override;
 
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 
