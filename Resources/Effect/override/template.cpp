@@ -1,39 +1,48 @@
 #include "template.h"
+#include "Player.h"
+#include <assert.h>
 
-
-void Player::Update() {
-	// キャラクターの移動ベクトル
-	Vector3 move = {0, 0, 0};
-
-	// 行列更新
-	worldTransform_.TransferMatrix();
-
-	// キャラクターの移動速度
-	const float kCharacterSpeed = 0.2f;
-	// 移動限界座標
-	const float kMoveLimitX = 34;
-	const float kMoveLimitY = 18;
-
-	float imputFloat3[3] = {
-	    worldTransform_.translation_.x, worldTransform_.translation_.y,
-	    worldTransform_.translation_.z};
-
-	// ベクターの加算
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
-	// アフィン変換行列の作成
-	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-
-	Player::Attack();
-
-	if (bullet_) {
-		bullet_->Update();
-	}
+EffectName::EffectName(Model* model, const Vector3& position, const Vector3& velocity) {
+}
+EffectName::~EffectName() {
 }
 
-void Player::Draw(ViewProjection& viewProjection_) {
-	if (bullet_) {
-		bullet_->Draw(viewProjection_);
-	}
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+void EffectName::Initialize() {
+	// NULL::
+	assert(model);
+	model_ = model;
+
+	// テクスチャ読み込む
+	textureHandle_ = TextureManager::Load("RED.png");
+
+	worldTransform_.Initialize();
+	worldTransform_.translation_ = position_;
+
+	velocity_ = velocity;
+}
+void EffectName::Update() {
+	assert(player_);
+	const float EffectNameSpeed = 1.0f;
+
+
+	Vector3 playerPosition = player_->GetWorldPosition();
+	//Vector3 enemyPosition = this->GetWorldPosition();
+	Vector3 velocity = Subtract(playerPosition, enemyPosition);
+	velocity = Normalize(velocity);
+
+	//velocity.x *= kBulletSpeed;
+	velocity.y *= EffectNameSpeed;
+	/*velocity.z *= kBulletSpeed;*/
+}
+
+void EffectName::Draw(const ViewProjection& viewProjection) {
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+}
+
+Vector3 EffectName::GetWorldPosition() {
+	Vector3 worldPosition;
+	worldPosition.x = worldTransform_.matWorld_.m[3][0];
+	worldPosition.y = worldTransform_.matWorld_.m[3][1];
+	worldPosition.z = worldTransform_.matWorld_.m[3][2];
+	return worldPosition;
 }

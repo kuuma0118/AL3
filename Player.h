@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Model.h"
 #include "PlayerBullet.h"
+#include "Resources/Effect/override/template.h"
 #include "WorldTransform.h"
 
 /// <summary>
@@ -36,6 +37,8 @@ public:
 	/// 攻撃
 	/// </summary>
 	void Attack();
+
+	Vector3 GetWorldPosition();
 
 private:
 	// ワールド変換データ
