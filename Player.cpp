@@ -16,83 +16,82 @@ void Player::Initialize(Model* model, uint32_t& textureHandle) {
 }
 
 void Player::Update() {
-	//// キャラクターの移動ベクトル
-	//Vector3 move = {0, 0, 0};
+	// キャラクターの移動ベクトル
+	Vector3 move = { 0, 0, 0 };
 
-	//// 行列更新
-	//worldTransform_.TransferMatrix();
+	// 行列更新
+	worldTransform_.TransferMatrix();
 
-	//// キャラクターの移動速度
-	//const float kCharacterSpeed = 0.2f;
-	//// 移動限界座標
-	//const float kMoveLimitX = 34;
-	//const float kMoveLimitY = 18;
+	// キャラクターの移動速度
+	const float kCharacterSpeed = 0.2f;
+	// 移動限界座標
+	const float kMoveLimitX = 34;
+	const float kMoveLimitY = 18;
 
-	//float imputFloat3[3] = {
-	//    worldTransform_.translation_.x, worldTransform_.translation_.y,
-	//    worldTransform_.translation_.z};
+	float imputFloat3[3] = {
+		worldTransform_.translation_.x, worldTransform_.translation_.y,
+		worldTransform_.translation_.z };
 
-	//// デバッグ
-	//ImGui::Begin("Debug");
-	//ImGui::SliderFloat3("player", imputFloat3, -30.0f, 30.0f);
-	//ImGui::End();
-	//worldTransform_.translation_.x = imputFloat3[0];
-	//worldTransform_.translation_.y = imputFloat3[1];
-	//worldTransform_.translation_.z = imputFloat3[2];
+	// デバッグ
+	ImGui::Begin("Debug");
+	ImGui::SliderFloat3("player", imputFloat3, -30.0f, 30.0f);
+	ImGui::End();
+	worldTransform_.translation_.x = imputFloat3[0];
+	worldTransform_.translation_.y = imputFloat3[1];
+	worldTransform_.translation_.z = imputFloat3[2];
 
-	//// 押した方向で移動ベクトルを変更（左右）
-	////if (input_->PushKey(DIK_LEFT)) {
-	////	move.x -= kCharacterSpeed;
-	////} else if (input_->PushKey(DIK_RIGHT)) {
-	////	move.x += kCharacterSpeed;
-	////}
+	// 押した方向で移動ベクトルを変更（左右）
+	if (input_->PushKey(DIK_LEFT)) {
+		move.x -= kCharacterSpeed;
+	}
+	else if (input_->PushKey(DIK_RIGHT)) {
+		move.x += kCharacterSpeed;
+	}
 
-	////// 押した方向で移動ベクトルを変更（上下）
-	////if (input_->PushKey(DIK_UP)) {
-	////	move.y += kCharacterSpeed;
-	////} else if (input_->PushKey(DIK_DOWN)) {
-	////	move.y -= kCharacterSpeed;
-	////}
+	// 押した方向で移動ベクトルを変更（上下）
+	if (input_->PushKey(DIK_UP)) {
+		move.y += kCharacterSpeed;
+	}
+	else if (input_->PushKey(DIK_DOWN)) {
+		move.y -= kCharacterSpeed;
+	}
 
-	//Player::Rotate();
+	Player::Rotate();
 
-	//// 範囲を超えない処理
-	//worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
-	//worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
-	//worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
-	//worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+	// 範囲を超えない処理
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 
-	//// ベクターの加算
-	//worldTransform_.translation_ = Add(worldTransform_.translation_, move);
-	//// アフィン変換行列の作成
-	//worldTransform_.matWorld_ = MakeAffineMatrix(
-	//    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	// ベクターの加算
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	// アフィン変換行列の作成
+	worldTransform_.matWorld_ = MakeAffineMatrix(
+		worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	Player::Attack();
+
+	if (bullet_) {
+		bullet_->Update();
+	}
 }
 
 // 回転
-//void Player::Rotate() {
-//	// 速さ
-//	const float kRotSpeed = 0.02f;
-//	// 押した方向で移動ベクトル
-//	if (input_->PushKey(DIK_A)) {
-//		worldTransform_.rotation_.y += kRotSpeed;
-//	} else if (input_->PushKey(DIK_D)) {
-//		worldTransform_.rotation_.y -= kRotSpeed;
-//	}
-//}
-
-void EffectName::Update() {
-	if (input_->PushKey(DIK_SPACE)) {
-
-		const float EffectNameSpeed = 1.0f;
-
-		Vector3 velocity(0, EffectNameSpeed, 0);
-
-		velocity = TransformNormal(velocity, worldTransform_.matWorld_);
-
-		EffectName* newEffectName = new EffectName(model,position_,velocity_);
-		newEffectName->Initialize();
+void Player::Rotate() {
+	// 速さ
+	const float kRotSpeed = 0.02f;
+	// 押した方向で移動ベクトル
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y += kRotSpeed;
 	}
+	else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+}
+
+// 攻撃
+void Player::Attack() {
 }
 
 void Player::Draw(ViewProjection& viewProjection_) {

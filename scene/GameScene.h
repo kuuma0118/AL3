@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "../Resources/Effect/EffectManager.h"
 
 /// <summary>
 /// ゲームシーン
@@ -66,4 +67,7 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+	
+	// エフェクトマネージャー
+	EffectManager effectManager_;
 };

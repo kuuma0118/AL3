@@ -113,7 +113,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="Resources\Effect\EffectManager.cpp" />
-    <ClCompile Include="Resources\Effect\override\template.cpp" />
+    <ClCompile Include="Resources\Effect\override\BlockUpperMove.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="WorldTransform.cpp" />
   </ItemGroup>
@@ -148,9 +148,10 @@
     <ClInclude Include="MT3math.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
+    <ClInclude Include="Resources\Effect\Easing.h" />
     <ClInclude Include="Resources\Effect\EffectManager.h" />
     <ClInclude Include="Resources\Effect\IEffect.h" />
-    <ClInclude Include="Resources\Effect\override\template.h" />
+    <ClInclude Include="Resources\Effect\override\BlockUpperMove.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>

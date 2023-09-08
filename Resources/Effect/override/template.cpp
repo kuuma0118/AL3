@@ -23,11 +23,12 @@ void EffectName::Initialize() {
 void EffectName::Update() {
 	assert(player_);
 	const float EffectNameSpeed = 1.0f;
+	Vector3 BoxMove = {0.0f,5.0f,0.0f};
 
 
 	Vector3 playerPosition = player_->GetWorldPosition();
-	//Vector3 enemyPosition = this->GetWorldPosition();
-	Vector3 velocity = Subtract(playerPosition, enemyPosition);
+	Vector3 BoxPosition = playerPosition + BoxMove;
+	Vector3 velocity = Subtract(playerPosition, BoxPosition);
 	velocity = Normalize(velocity);
 
 	//velocity.x *= kBulletSpeed;

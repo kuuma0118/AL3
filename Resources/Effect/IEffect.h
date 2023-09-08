@@ -6,6 +6,8 @@
 
 class IEffect {
 public:	// 純粋仮想関数
+	virtual ~IEffect() = default;
+
 	virtual void Initialize() = 0;	// 初期化
 	virtual void Update() = 0;	// 更新
 	virtual void Draw(const ViewProjection& viewProjection) = 0;	// 描画

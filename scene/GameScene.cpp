@@ -35,6 +35,8 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);
 	// 軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	effectManager_.Initialize();
 }
 
 void GameScene::Update() {
@@ -59,6 +61,14 @@ void GameScene::Update() {
 		viewProjection_.UpdateMatrix();
 	}
 #endif
+
+	// エフェクトを呼び出す
+	if (input_->TriggerKey(DIK_SPACE)) {
+		Vector3 pos = { 0.0f,0.0f,0.0f };
+		effectManager_.AddNewEffect<BlockUpperMove>(model_, pos);
+	}
+
+	effectManager_.Update();
 }
 
 void GameScene::Draw() {
@@ -87,6 +97,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	player_->Draw(viewProjection_);
+
+	effectManager_.Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

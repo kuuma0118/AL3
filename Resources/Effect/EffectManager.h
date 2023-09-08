@@ -3,8 +3,10 @@
 #include "IEffect.h"
 #include <list>
 
-template<class TEffect>
-concept IsIEffect = std::is_base_of<IEffect, TEffect>::value;
+#include "override/BlockUpperMove.h"
+
+template<class EffectT>
+concept IsIEffect = std::is_base_of<IEffect, EffectT>::value;
 
 class EffectManager {
 public: // メンバ関数
@@ -17,10 +19,10 @@ public: // メンバ関数
 	void Update();
 	// 描画
 	// 全てのeffectsを描画する
-	void Draw();
+	void Draw(const ViewProjection& viewProjection);
 
 	// 新しいエフェクトを登録する（可変テンプレート引数を使用）
-	template <typename TEffect, typename... Args>
+	template <IsIEffect TEffect, typename... Args>
 	void AddNewEffect(Args&&... args) {
 		effects.push_back(new TEffect(std::forward<Args>(args)...));
 	};
